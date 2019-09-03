@@ -1,6 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import HueBridge from "./HueBridge";
+import Lights from "./Lights";
 
 function App() {
   return (
@@ -18,6 +20,22 @@ function App() {
         >
           Learn React
         </a>
+        <form>
+          <label htmlFor="ipAddress">IP Adress of Hue Bridge</label>
+          <input
+            type="text"
+            name="ipAddress"
+            id="ipAddress"
+            value="192.168.0.100"
+          />
+          <br />
+          <label htmlFor="userName">User Name</label>
+          <input type="text" name="userName" id="userName" value="" />
+          <br />
+        </form>
+        <HueBridge ipAddress="192.168.0.100" login="smartHome">
+          <Lights />
+        </HueBridge>
       </header>
     </div>
   );
