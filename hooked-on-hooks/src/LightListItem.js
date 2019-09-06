@@ -1,30 +1,35 @@
 import React from "react";
 import { SketchPicker } from "react-color";
+import {
+  getColorFromString,
+  ColorPicker,
+  Slider,
+  Stack,
+  Toggle
+} from "office-ui-fabric-react";
+import colorConvert from "color-convert";
 
 function LightListItem({ light, dispatcher }) {
   function switchLight() {
     dispatcher({ type: "toggleOn", payload: { lightId: light.id } });
   }
 
-  function setBrightness(event) {
-    let value = parseInt(event.target.value);
+  function setBrightness(value) {
     dispatcher({
       type: "setBrightness",
       payload: { lightId: light.id, brightness: value }
     });
   }
-  function setHue(event) {
-    let value = parseInt(event.target.value);
+  function setHue(value) {
     dispatcher({
       type: "setHue",
       payload: { lightId: light.id, hue: value }
     });
   }
-  function setSaturation(event) {
-    let value = parseInt(event.target.value);
+  function setSaturation(value) {
     dispatcher({
       type: "setSaturation",
-      payload: { lightId: light.id, saturation: value }
+      payload: { lightId: light.id, sat: value }
     });
   }
 
@@ -50,47 +55,62 @@ function LightListItem({ light, dispatcher }) {
   };
 
   return (
-    <div>
-      <h1>{light.name}</h1>
-      <form>
-        <label>Power on</label>
-        <input
-          type="checkbox"
-          name="on"
-          onChange={switchLight}
+    <Stack>
+      <Stack.Item>
+        <h1>{light.name}</h1>
+      </Stack.Item>
+      <Stack.Item>
+        <Toggle
           checked={light.state.on}
+          onChange={switchLight}
+          onText="On"
+          offText="Off"
         />
-        <br />
-        <label>Brightness</label>
-        <input
-          type="number"
-          name="bri"
-          onChange={setBrightness}
+      </Stack.Item>
+
+      <Stack.Item>
+        <Slider
+          label="Brightness"
+          min={1}
+          max={254}
+          step={1}
           value={light.state.bri}
+          onChange={setBrightness}
         />
-        <br />
-        <label>Hue</label>
-        <input
-          type="number"
-          name="hue"
-          onChange={setHue}
+      </Stack.Item>
+
+      <Stack.Item>
+        <Slider
+          label="Hue"
+          min={0}
+          max={65535}
+          step={100}
           value={light.state.hue}
+          onChange={setHue}
         />
-        <br />
-        <label>Saturation</label>
-        <input
-          type="number"
-          name="sat"
-          onChange={setSaturation}
+      </Stack.Item>
+
+      <Stack.Item>
+        <Slider
+          label="Saturation"
+          min={0}
+          max={254}
+          step={1}
           value={light.state.sat}
+          onChange={setSaturation}
         />
+      </Stack.Item>
+      <Stack.Item>
         <label>Color</label>
-        <SketchPicker color={color} onChange={setColor} />
-        <br />
-        <label>Effect</label>
-        <input type="text" name="effect" value={light.state.effect} />
-      </form>
-    </div>
+        <SketchPicker
+          color={color}
+          onChange={setColor}
+          disableAlpha
+          presetColors={[]}
+          width="50%"
+        />
+      </Stack.Item>
+    </Stack>
   );
 }
 

@@ -1,12 +1,13 @@
 import React from "react";
 import LightListItem from "./LightListItem";
+import { List } from "office-ui-fabric-react";
 
 function LightList({ lights, lightDispatcher }) {
-  const items = lights.map(light => {
-    return <LightListItem light={light} dispatcher={lightDispatcher} />;
-  });
+  function _onRenderCell(item) {
+    return <LightListItem light={item} dispatcher={lightDispatcher} />;
+  }
 
-  return <div>{items}</div>;
+  return <List items={lights} onRenderCell={_onRenderCell} />;
 }
 
 export default LightList;

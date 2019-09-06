@@ -8,6 +8,10 @@ function lightsReducer(lights, action, hueContext) {
       return toggleOn(lights, action.payload, hueContext);
     case "setBrightness":
       return setBrightness(lights, action.payload, hueContext);
+    case "setHue":
+      return setHue(lights, action.payload, hueContext);
+    case "setSaturation":
+      return setSaturation(lights, action.payload, hueContext);
     case "setColor":
       return setColor(lights, action.payload, hueContext);
     case "setEffect":
@@ -30,6 +34,22 @@ function setBrightness(lights, payload, hueContext) {
   const light = newLights.find(l => l.id === payload.lightId);
   light.state.bri = payload.brightness;
   hueContext.user.setLightState(payload.lightId, { bri: payload.brightness });
+  return newLights;
+}
+
+function setHue(lights, payload, hueContext) {
+  const newLights = lights.concat();
+  const light = newLights.find(l => l.id === payload.lightId);
+  light.state.hue = payload.hue;
+  hueContext.user.setLightState(payload.lightId, { hue: payload.hue });
+  return newLights;
+}
+
+function setSaturation(lights, payload, hueContext) {
+  const newLights = lights.concat();
+  const light = newLights.find(l => l.id === payload.lightId);
+  light.state.sat = payload.sat;
+  hueContext.user.setLightState(payload.lightId, { sat: payload.sat });
   return newLights;
 }
 
