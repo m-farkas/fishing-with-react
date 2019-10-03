@@ -6,7 +6,7 @@ import Lights from "./Lights";
 function App() {
   return (
     <div className="App">
-      <HueBridge ipAddress="127.0.0.1" login="smartHome">
+      <HueBridge ipAddress="192.168.0.100" login="smartHome">
         <Lights />
       </HueBridge>
     </div>

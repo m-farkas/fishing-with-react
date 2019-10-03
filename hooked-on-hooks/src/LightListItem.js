@@ -1,13 +1,37 @@
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
 import React from "react";
 import { SketchPicker } from "react-color";
-import {
-  getColorFromString,
-  ColorPicker,
-  Slider,
-  Stack,
-  Toggle
-} from "office-ui-fabric-react";
 import colorConvert from "color-convert";
+import LightSwitch from "./LightSwitch";
+import LightSlider from "./LightSlider";
+import LightIcon from "./LightIcon";
+
+const main = css`
+  display: flex;
+  flex-flow: row wrap;
+  background-color: #2a2a2a;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+  color: #7f7f7f;
+`;
+
+const icon = css`
+  width: 10%;
+`;
+
+const name = css`
+  flex-grow: 1;
+  text-align: left;
+`;
+
+const lightSwitch = css``;
+
+const brightness = css`
+  width: 100%;
+  flex-grow: 1;
+`;
 
 function LightListItem({ light, dispatcher }) {
   function switchLight() {
@@ -54,63 +78,65 @@ function LightListItem({ light, dispatcher }) {
     l: light.state.bri / 254
   };
 
-  return (
-    <Stack>
-      <Stack.Item>
-        <h1>{light.name}</h1>
-      </Stack.Item>
-      <Stack.Item>
-        <Toggle
-          checked={light.state.on}
-          onChange={switchLight}
-          onText="On"
-          offText="Off"
-        />
-      </Stack.Item>
+  function _renderBrightness() {
+    if (!light.state.on) {
+      return null;
+    }
 
-      <Stack.Item>
-        <Slider
-          label="Brightness"
+    return (
+      <div css={brightness}>
+        <LightSlider
           min={1}
           max={254}
-          step={1}
           value={light.state.bri}
           onChange={setBrightness}
         />
-      </Stack.Item>
+      </div>
+    );
+  }
 
-      <Stack.Item>
-        <Slider
-          label="Hue"
-          min={0}
-          max={65535}
-          step={100}
-          value={light.state.hue}
-          onChange={setHue}
-        />
-      </Stack.Item>
+  return (
+    <div css={main}>
+      <div css={icon}>
+        <LightIcon light={light} />
+      </div>
+      <div css={name}>
+        <h1>{light.name}</h1>
+      </div>
+      <div css={lightSwitch}>
+        <LightSwitch light={light} onChange={switchLight} />
+      </div>
+      {_renderBrightness()}
 
-      <Stack.Item>
-        <Slider
-          label="Saturation"
-          min={0}
-          max={254}
-          step={1}
-          value={light.state.sat}
-          onChange={setSaturation}
+      {/*
+        <Stack.Item>
+        <LightSlider
+        min={0}
+        max={65535}
+        value={light.state.hue}
+        onChange={setHue}
         />
-      </Stack.Item>
-      <Stack.Item>
+        </Stack.Item>
+        
+        <Stack.Item>
+        <LightSlider
+        min={0}
+        max={254}
+        value={light.state.sat}
+        onChange={setSaturation}
+        />
+        </Stack.Item>
+        <Stack.Item>
         <label>Color</label>
         <SketchPicker
-          color={color}
-          onChange={setColor}
-          disableAlpha
-          presetColors={[]}
-          width="50%"
+        color={color}
+        onChange={setColor}
+        disableAlpha
+        presetColors={[]}
+        width="50%"
         />
-      </Stack.Item>
-    </Stack>
+      </Stack.Item> */}
+    </div>
   );
 }
 

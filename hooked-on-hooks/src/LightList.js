@@ -1,13 +1,17 @@
-import React from "react";
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
 import LightListItem from "./LightListItem";
-import { List } from "office-ui-fabric-react";
+
+const main = css`
+  padding: 10px;
+`;
 
 function LightList({ lights, lightDispatcher }) {
-  function _onRenderCell(item) {
-    return <LightListItem light={item} dispatcher={lightDispatcher} />;
-  }
+  const items = lights.map(light => {
+    return <LightListItem light={light} dispatcher={lightDispatcher} />;
+  });
 
-  return <List items={lights} onRenderCell={_onRenderCell} />;
+  return <div css={main}>{items}</div>;
 }
 
 export default LightList;
