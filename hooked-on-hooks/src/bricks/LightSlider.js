@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { useEffect, useRef, useState } from "react";
-import useDebounceCallback from "./hooks/useDebounceCallback";
+import useDebounceCallback from "../hooks/useDebounceCallback";
 
 const main = css`
   outline-style: solid;

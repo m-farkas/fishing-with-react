@@ -35,25 +35,26 @@ const brightness = css`
 
 function LightListItem({ light, dispatcher }) {
   function switchLight() {
-    dispatcher({ type: "toggleOn", payload: { lightId: light.id } });
+    dispatcher({ type: "toggleOn", payload: { light, on: !light.state.on } });
   }
 
-  function setBrightness(value) {
+  function setBrightness(bri) {
     dispatcher({
       type: "setBrightness",
-      payload: { lightId: light.id, brightness: value }
+      payload: { light, bri }
     });
   }
-  function setHue(value) {
+  function setHue(hue) {
     dispatcher({
       type: "setHue",
-      payload: { lightId: light.id, hue: value }
+      payload: { light, hue }
     });
   }
-  function setSaturation(value) {
+
+  function setSaturation(sat) {
     dispatcher({
       type: "setSaturation",
-      payload: { lightId: light.id, sat: value }
+      payload: { light, sat }
     });
   }
 
@@ -66,7 +67,7 @@ function LightListItem({ light, dispatcher }) {
     dispatcher({
       type: "setColor",
       payload: {
-        lightId: light.id,
+        light,
         color: { bri, sat, hue }
       }
     });
