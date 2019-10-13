@@ -8,7 +8,13 @@ const main = css`
 
 function LightList({ lights, lightDispatcher }) {
   const items = lights.map(light => {
-    return <LightListItem light={light} dispatcher={lightDispatcher} />;
+    return (
+      <LightListItem
+        key={light.uniqueid}
+        light={light}
+        dispatcher={lightDispatcher}
+      />
+    );
   });
 
   return <div css={main}>{items}</div>;

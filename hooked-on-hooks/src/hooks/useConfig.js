@@ -32,12 +32,6 @@ function useConfig() {
     ConfigDao.save(config);
   });
 
-  async function dispatchWrapper(action) {
-    const config = dispatch(action);
-    await ConfigDao.save(config);
-    return config;
-  }
-
   return [config, dispatch];
 }
 

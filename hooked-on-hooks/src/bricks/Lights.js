@@ -25,7 +25,7 @@ function Lights() {
     }
 
     loadLights();
-  });
+  }, [hueContext]);
 
   function dispatchWrapper(dispatch) {
     return action => {
@@ -55,6 +55,8 @@ function Lights() {
           hueContext.user.setLightState(payload.light.id, {
             effect: payload.effect
           });
+          break;
+        default:
           break;
       }
 

@@ -1,8 +1,5 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import React from "react";
-import { SketchPicker } from "react-color";
-import colorConvert from "color-convert";
 import LightSwitch from "./LightSwitch";
 import LightSlider from "./LightSlider";
 import LightIcon from "./LightIcon";
@@ -44,40 +41,40 @@ function LightListItem({ light, dispatcher }) {
       payload: { light, bri }
     });
   }
-  function setHue(hue) {
-    dispatcher({
-      type: "setHue",
-      payload: { light, hue }
-    });
-  }
+  // function setHue(hue) {
+  //   dispatcher({
+  //     type: "setHue",
+  //     payload: { light, hue }
+  //   });
+  // }
 
-  function setSaturation(sat) {
-    dispatcher({
-      type: "setSaturation",
-      payload: { light, sat }
-    });
-  }
+  // function setSaturation(sat) {
+  //   dispatcher({
+  //     type: "setSaturation",
+  //     payload: { light, sat }
+  //   });
+  // }
 
-  function setColor(color) {
-    console.log("setColor", color);
-    let hue = Math.floor((color.hsl.h / 360) * 65535);
-    let bri = Math.floor(color.hsl.l * 254);
-    let sat = Math.floor(color.hsl.s * 254);
+  // function setColor(color) {
+  //   console.log("setColor", color);
+  //   let hue = Math.floor((color.hsl.h / 360) * 65535);
+  //   let bri = Math.floor(color.hsl.l * 254);
+  //   let sat = Math.floor(color.hsl.s * 254);
 
-    dispatcher({
-      type: "setColor",
-      payload: {
-        light,
-        color: { bri, sat, hue }
-      }
-    });
-  }
+  //   dispatcher({
+  //     type: "setColor",
+  //     payload: {
+  //       light,
+  //       color: { bri, sat, hue }
+  //     }
+  //   });
+  // }
 
-  let color = {
-    h: (light.state.hue / 65535) * 360,
-    s: light.state.sat / 254,
-    l: light.state.bri / 254
-  };
+  // let color = {
+  //   h: (light.state.hue / 65535) * 360,
+  //   s: light.state.sat / 254,
+  //   l: light.state.bri / 254
+  // };
 
   function _renderBrightness() {
     if (!light.state.on) {
@@ -108,35 +105,6 @@ function LightListItem({ light, dispatcher }) {
         <LightSwitch light={light} onChange={switchLight} />
       </div>
       {_renderBrightness()}
-
-      {/*
-        <Stack.Item>
-        <LightSlider
-        min={0}
-        max={65535}
-        value={light.state.hue}
-        onChange={setHue}
-        />
-        </Stack.Item>
-        
-        <Stack.Item>
-        <LightSlider
-        min={0}
-        max={254}
-        value={light.state.sat}
-        onChange={setSaturation}
-        />
-        </Stack.Item>
-        <Stack.Item>
-        <label>Color</label>
-        <SketchPicker
-        color={color}
-        onChange={setColor}
-        disableAlpha
-        presetColors={[]}
-        width="50%"
-        />
-      </Stack.Item> */}
     </div>
   );
 }

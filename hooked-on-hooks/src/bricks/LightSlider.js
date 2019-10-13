@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import useDebounceCallback from "../hooks/useDebounceCallback";
 
 const main = css`
@@ -20,10 +20,6 @@ function LightSlider({ min, max, initValue, onChange }) {
   const ref = useRef(null);
   const [debounceOnChange] = useDebounceCallback(onChange, 100);
   const [value, setValue] = useState(initValue);
-
-  useEffect(() => {
-    const width = ref.current ? ref.current.offsetWidth : 0;
-  });
 
   function _handleClick(event) {
     const newWidth =
