@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect, useContext } from "react";
+import React, { useRef, useReducer, useEffect, useContext } from "react";
 import HueContext from "../contexts/HueContext";
 import LightList from "./LightList";
 import LightReducer from "../reducers/LightReducer";
@@ -6,6 +6,7 @@ import LightReducer from "../reducers/LightReducer";
 function Lights() {
   const hueContext = useContext(HueContext);
   const [lights, dispatch] = useReducer(LightReducer, []);
+  const timerId = useRef(null);
 
   useEffect(() => {
     async function loadLights() {
@@ -24,7 +25,11 @@ function Lights() {
       dispatch({ type: "reset", payload: newLights });
     }
 
+    timerId.current = setInterval(loadLights, 1000);
+
     loadLights();
+
+    return () => clearInterval(timerId.current);
   }, [hueContext]);
 
   function dispatchWrapper(dispatch) {
