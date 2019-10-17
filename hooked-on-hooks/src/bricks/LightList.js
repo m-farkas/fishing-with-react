@@ -6,13 +6,13 @@ const main = css`
   padding: 10px;
 `;
 
-function LightList({ lights, lightDispatcher }) {
+function LightList({ lights, onDispatch }) {
   const items = lights.map(light => {
     return (
       <LightListItem
         key={light.uniqueid}
         light={light}
-        dispatcher={lightDispatcher}
+        onDispatch={onDispatch}
       />
     );
   });

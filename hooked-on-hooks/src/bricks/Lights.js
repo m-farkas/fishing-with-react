@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, useContext } from "react";
+import React, { useState, useReducer, useEffect, useContext } from "react";
 import HueContext from "../contexts/HueContext";
 import LightList from "./LightList";
 import LightReducer from "../reducers/LightReducer";
@@ -68,9 +68,7 @@ function Lights() {
     return "Connecting to bridge...";
   }
 
-  return (
-    <LightList lights={lights} lightDispatcher={dispatchWrapper(dispatch)} />
-  );
+  return <LightList lights={lights} onDispatch={dispatchWrapper(dispatch)} />;
 }
 
 export default Lights;

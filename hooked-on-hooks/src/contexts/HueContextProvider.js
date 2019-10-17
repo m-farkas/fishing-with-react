@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback } from "react";
 import jshue from "jshue";
 
 import HueContext from "./HueContext";
@@ -11,36 +11,42 @@ function HueContextProvider({ children }) {
   const { log } = useContext(MessageContext);
   const [hueContext] = useBridge(config.activeBridge);
 
-  async function _addBridge({ ip }) {
-    const hue = jshue();
-    const bridge = hue.bridge(ip);
-    const data = await bridge.createUser("uuSmartHome");
+  const _addBridge = useCallback(
+    async ({ ip }) => {
+      const hue = jshue();
+      const bridge = hue.bridge(ip);
+      const data = await bridge.createUser("uuSmartHome");
 
-    if (data[0].error) {
-      log({ type: "error", text: data[0].error.description });
-      return;
-    }
-
-    const username = data[0].success.username;
-
-    dispatch({
-      type: "addBridge",
-      payload: {
-        ip,
-        name: ip,
-        username
+      if (data[0].error) {
+        log({ type: "error", text: data[0].error.description });
+        return;
       }
-    });
-  }
 
-  async function _removeBridge(bridge) {
-    dispatch({
-      type: "removeBridge",
-      payload: {
-        id: bridge.id
-      }
-    });
-  }
+      const username = data[0].success.username;
+
+      dispatch({
+        type: "addBridge",
+        payload: {
+          ip,
+          name: ip,
+          username
+        }
+      });
+    },
+    [dispatch]
+  );
+
+  const _removeBridge = useCallback(
+    async bridge => {
+      dispatch({
+        type: "removeBridge",
+        payload: {
+          id: bridge.id
+        }
+      });
+    },
+    [dispatch]
+  );
 
   return (
     <HueContext.Provider

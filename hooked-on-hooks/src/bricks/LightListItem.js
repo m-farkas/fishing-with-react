@@ -30,13 +30,13 @@ const brightness = css`
   flex-grow: 1;
 `;
 
-function LightListItem({ light, dispatcher }) {
+function LightListItem({ light, onDispatch }) {
   function switchLight() {
-    dispatcher({ type: "toggleOn", payload: { light, on: !light.state.on } });
+    onDispatch({ type: "toggleOn", payload: { light, on: !light.state.on } });
   }
 
   function setBrightness(bri) {
-    dispatcher({
+    onDispatch({
       type: "setBrightness",
       payload: { light, bri }
     });
