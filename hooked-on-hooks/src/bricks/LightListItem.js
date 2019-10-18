@@ -32,14 +32,16 @@ const brightness = css`
 
 function LightListItem({ light, onDispatch }) {
   function switchLight() {
-    onDispatch({ type: "toggleOn", payload: { light, on: !light.state.on } });
+    // TODO Call onDispatch with action toggleOn
+    //onDispatch({ type: "toggleOn", payload: { light, on: !light.state.on } });
   }
 
   function setBrightness(bri) {
-    onDispatch({
-      type: "setBrightness",
-      payload: { light, bri }
-    });
+    // TODO Call onDispatch with action setBrightness
+    // onDispatch({
+    //   type: "setBrightness",
+    //   payload: { light, bri }
+    // });
   }
   // function setHue(hue) {
   //   dispatcher({
