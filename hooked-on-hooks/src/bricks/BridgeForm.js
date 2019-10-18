@@ -1,9 +1,6 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
-import { useContext, useState } from "react";
-import HueContext from "../contexts/HueContext";
+import React from "react";
 
 export default function BridgeForm() {
-  // TODO
+  // TODO Add internal state a fill it from input when change occurs
   return null;
 }
