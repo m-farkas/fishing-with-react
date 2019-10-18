@@ -20,3 +20,7 @@ https://hue-debugger-ui.com/
 
 jsHue
 https://github.com/blargoner/jshue
+
+Hue Bridge
+casiopea
+reacthooks
