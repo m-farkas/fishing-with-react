@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
 import { useRef, useState } from "react";
-import useDebounceCallback from "../hooks/useDebounceCallback";
 
 const main = css`
   outline-style: solid;
@@ -18,7 +17,6 @@ const slider = css`
 
 function LightSlider({ min, max, initValue, onChange }) {
   const ref = useRef(null);
-  const [debounceOnChange] = useDebounceCallback(onChange, 100);
   const [value, setValue] = useState(initValue);
 
   function _handleClick(event) {
@@ -34,32 +32,12 @@ function LightSlider({ min, max, initValue, onChange }) {
     }
   }
 
-  function _handleMouseMove(event) {
-    if (event.buttons === 0) {
-      return;
-    }
-
-    const newWidth =
-      (event.clientX - ref.current.offsetLeft) / ref.current.offsetWidth;
-
-    const newValue = Math.round(newWidth * (max - min) + min);
-
-    setValue(newValue);
-
-    if (typeof onChange === "function") {
-      debounceOnChange(newValue);
-    }
-  }
+  // TODO Handle onMouseMove and use useDebounceCallback to handle huge amount of value changes
 
   const width = ((value - min) / (max - min)) * 100;
 
   return (
-    <div
-      ref={ref}
-      css={main}
-      onClick={_handleClick}
-      onMouseMove={_handleMouseMove}
-    >
+    <div ref={ref} css={main} onClick={_handleClick}>
       <div
         css={css`
           ${slider};
