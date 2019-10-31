@@ -12,6 +12,8 @@ const main = css`
   align-items: center;
   justify-content: space-between;
   color: #7f7f7f;
+  margin-bottom: 10px;
+  border-radius: 15px;
 `;
 
 const icon = css`

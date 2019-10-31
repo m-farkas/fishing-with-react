@@ -10,8 +10,9 @@ const mainCss = css`
 `;
 
 const itemCss = css`
-  flex-grow: 0 1 auto;
+  flex: 1 0 auto;
   margin: 10px;
+  min-width: 200px;
 `;
 
 function BridgeList() {
